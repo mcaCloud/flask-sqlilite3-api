@@ -7,8 +7,10 @@ from flask import Flask, jsonify, redirect, url_for, render_template, request, s
 from flask_session import Session
 
 # Esto lo importo para interactuar con la base de datos y sus metodos
-from models.db import get_connect as db
-
+from models.db import Database as db
+#-------------------------------
+#       APLICACION
+#-------------------------------
 # Creo una instancia de Flask
 # Esto es importante porque a traves de esto la aplicacion
 # sabe donde buscar los archivos :html,statiics ,ect
@@ -27,7 +29,7 @@ app.secret_key = 'ItShouldBeAnythingButSecret'
 #       BASE DE DATOS
 #-------------------------------
 # Abro la conexion a mi base de datos desde mi modelo db_model
-con = db()
+con = db.db_connection()
 
 # Utilizo el metodo para crear la tabla de usuarios
 #db.create_table_users(con)
