@@ -10,6 +10,7 @@ from flask_session import Session
 # Menciono el directorio, el fichero y la clase dentro del fichero
 from models.user_model import User
 from  models.db import Database
+from models.new_user import Model_new_user
 #-------------------------------
 #       APLICACION
 #-------------------------------
@@ -102,9 +103,19 @@ def register():
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
-        #----- EXECUTO LA CONSULTA-----
-        # Utilizo el modelo de usuario para insertar los datos
-        User.insert_user(name,email,password)
+        #-------------------
+        #    OBJETO USUARIO
+        #-------------------
+        # Aqui creo un objeto de Usuario
+        # Le paso por parámetro los datos del formulario
+        user = Model_new_user(name,email,password)
+        # Obtengo los atributo del objeto y los paso como parametro
+        # Esto es para realizar la consulta en la BD
+        #------------------------
+        #    INSERTO DATOS EN BD
+        #------------------------
+        User.insert_user(user.name,user.email,user.password)
+
         return redirect('/')
     else:
         #return jsonify(object_user)

@@ -9,7 +9,7 @@ class User:
     #----------------------------------------
     # Esta clase obtiene tres parametro para insertar en la DB
     # No le paso el ID porque es autoincremental y lo asigna la base de datos
-    def insert_user(name, email,password):
+    def insert_user(name, email, password):
         # Primero me conecto a la base de DATOS
         db = Database.db_connection()
 
