@@ -2,12 +2,14 @@
 # Con jsonify podemos pasar de un diccionario a un objeto json
 # Las APIs generalmente trabajan con objetos json
 # COn request me permite hacer los POST-GET
-from flask import Flask, jsonify, redirect, url_for, render_template, request, session
-
+from flask import Flask, jsonify, redirect, url_for, render_template
+from flask import request
 from flask_session import Session
 
 # Esto lo importo para interactuar con la base de datos y sus metodos
-from models.db import Database as db
+# Menciono el directorio, el fichero y la clase dentro del fichero
+from models.user_model import User
+from  models.db import Database
 #-------------------------------
 #       APLICACION
 #-------------------------------
@@ -25,21 +27,12 @@ app.config["SESSION_TYPE"] = "filesystem"
 
 app.secret_key = 'ItShouldBeAnythingButSecret'
 
-#-------------------------------
-#       BASE DE DATOS
-#-------------------------------
-# Abro la conexion a mi base de datos desde mi modelo db_model
-con = db.db_connection()
-
-# Utilizo el metodo para crear la tabla de usuarios
-#db.create_table_users(con)
-
-
-# Regreso la conexion para poder utilizarla
-#-------------------------------
-#       CREAR RUTA
-#-------------------------------
-
+                #-------------------------------
+                #       CREAR RUTAS
+                #-------------------------------
+#---------------
+#    INDEX
+#----------------
 # Esto es un decorador que me ayudar a genera rutas
 # Lo utiliza Flask para saber a que  URL acceder
 # Paso como argumento la ruta de la URL en este caso Root
@@ -53,6 +46,9 @@ def index():
     nombre = 'Mauro'
     return render_template('index.html', nombre= nombre)
 
+#---------------
+#    CONTACT
+#----------------
 @app.route('/contact')
 def contact():
     nombre = 'Mauro'
@@ -62,7 +58,9 @@ def contact():
     # Las variables se las paso por parametro
     return render_template('contact.html', lista = lista, nombre= nombre)
 
-
+#---------------
+#    LOGIN
+#----------------
 # NEcesito grabar cunado el usuario evia el formulario
 @app.route('/login', methods = ['GET', 'POST'])
 def login(email,password,con):
@@ -80,21 +78,37 @@ def login(email,password,con):
             return redirect('/dashboard')
 
         return "<h1>Wrong username or password</h1>"    #if the username or password does not matches
+
+#---------------
+#    LOGOUT
+#----------------
 @app.route('/logout')
 def logout():
    # remove the username from the session if it is there
    session.pop('username', None)
    return redirect('index')
 
-
+#---------------
+#    REGISTER
+#----------------
+# Necesitamos saber de donde vienen los datos
+# Utilizamos el GET POST para obtener los datos del usuario
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
-    nombre = 'Mauro'
-    lista = [1,2,3,4,5,6,7]
-    # Flask sabe que todos los templates estan en el folder de template
-    # Invoco la funcion y le indico el nombre de mi template
-    # Las variables se las paso por parametro
-    return render_template('test.html', lista = lista, nombre= nombre)
+    if request.method == 'POST':
+        #---- EXTRAIGO LA INFO------
+        # Variable para almacenar la info del formulario
+        #user_details = request.get_json()
+        name = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+        #----- EXECUTO LA CONSULTA-----
+        # Utilizo el modelo de usuario para insertar los datos
+        User.insert_user(name,email,password)
+        return redirect('/')
+    else:
+        #return jsonify(object_user)
+        return redirect('/')
 
 @app.route('/dashboard')
 def home():
@@ -105,11 +119,16 @@ def home():
     return render_template('home.html')
 
 
+@app.route('/users', methods = ['GET'])
+def show_users():
+    users = User.get_users()
+    return jsonify(users)
+
 # Esto es para saber si el script se ejecuta directo desde aqui y no
 # Esta siendo importado
 if __name__ == "__main__":
 
-
+    Database.create_table()
     # Aqui activo el debuger en la aplicacion para poder ver los cambios en vivo cuando los hago
     # Esto es produccion ya no es recomendable
     # Aqui le indico el puerto 8080

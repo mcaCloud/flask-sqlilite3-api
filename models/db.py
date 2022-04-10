@@ -3,7 +3,6 @@
                     #---------------------#
 # Utilizo al módulo de excepcciones para controlar los errores a la hora de importar
 try:
-    import random
     # Importo el módulo de sqlite3
     import sqlite3
     # Para saber que tipo de error en la interaccion con la base de datos
@@ -26,6 +25,7 @@ class Database:
              # Creo un objeto de conección
              ## Esto me crea un archivo .db en el directorio actual del módulo
              con = sqlite3.connect('myapp.db')
+             # Regreso la conexión para utilizarla desde el main
              return con
         # Utilizo la fuincion de Sqllite3 ERROR que la importamos más arriba
         # Es lo mismo que utilizar Exception as ...
@@ -47,11 +47,11 @@ class Database:
                 )
         """
         # Establecemos la conección a la base de datos
-        db = db_connection
+        db = Database.db_connection()
         # Una vez que tengamos la conexion hacemos un excecute
         # Le paso como parametro la variable SQL con la consulta
-        cursor = db.excecute(sql)
+        db.execute(sql)
         #-----------------------------------
         # --------- GUARDAR en DB  ---------
         # Esto lo que hace es guardarme los cambios en la base de datos
-        con.commit()
+        db.commit()

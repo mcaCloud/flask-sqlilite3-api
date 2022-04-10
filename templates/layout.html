@@ -6,9 +6,9 @@
     <title>Mi primera app</title>
     <meta name="description" content="Learming Python">
     <meta name="keywords" content="python, testing, learning, test">
-    
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,700">
-    
+
     <!--Los recursos siempre tienen que estar en el folder STATIC
         Es necesario utilizaar el URL_FOR para llamar a la direccion donde esta el recurso
     -------->
@@ -26,18 +26,18 @@
     <!----------------------------------------------------------------------->
     <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar">
       <div class="container">
-      
-        <!--DIV------------------------------->      
+
+        <!--DIV------------------------------->
         <div class="navbar-header">
-        
+
         <!----------------COLLAPSE BUTTON----------------->
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </button>          
-          <!----------------BRAND----------------->          
+          </button>
+          <!----------------BRAND----------------->
           <a class="navbar-brand" href="index.html" title="uiCookies:Inspire">Inspire</a>
         </div>
         <!--DIV END------------------------------->
@@ -46,13 +46,13 @@
           <ul class="nav navbar-nav navbar-right">
              <!-----------HOME---------------->
             <li><a href="index.html">Home</a></li>
-            
+
             <!------------CONTACT---------------->
             <li><a href="{{ url_for('contact')}}">Contacto</a></li>
-            
-            <!------------LOGIN--------------->          
+
+            <!------------LOGIN--------------->
             <li class="probootstra-cta-button"><a href="#" class="btn" data-toggle="modal" data-target="#loginModal">Log in</a></li>
-            
+
             <!-----------LOGOUT---------------->
             <li class="probootstra-cta-button last"><a href="#" class="btn btn-ghost" data-toggle="modal" data-target="#signupModal">Sign up</a></li>
           </ul>
@@ -71,7 +71,7 @@
             <div class="probootstrap-modal-flex">
               <div class="probootstrap-modal-figure" style="background-image: url(img/modal_bg.jpg);"></div>
               <div class="probootstrap-modal-content">
-              
+
                  <!-------------------------------------->
                  <!-------------    FORM    ------------->
                  <!-------------------------------------->
@@ -79,19 +79,19 @@
                   <!-------------------------------------->
                   <div class="form-group">
                     <input type="text" class="form-control" placeholder="Email">
-                  </div> 
-                  
+                  </div>
+
                   <!-------------------------------------->
                   <div class="form-group">
                     <input type="password" class="form-control" placeholder="Password">
-                  </div> 
-                  
+                  </div>
+
                   <!-------------------------------------->
                   <div class="form-group clearfix mb40">
                     <label for="remember" class="probootstrap-remember"><input type="checkbox" id="remember"> Remember Me</label>
                     <a href="#" class="probootstrap-forgot">Forgot Password?</a>
                   </div>
-                  
+
                   <!-------------------------------------->
                   <div class="form-group text-left">
                     <div class="row">
@@ -111,7 +111,7 @@
         </div>
       </div>
     </div>
-    
+
     <!----------------------------------------------------------------------->
     <!----------------------     REGISTER    ----------------------------------->
     <!----------------------------------------------------------------------->
@@ -123,19 +123,19 @@
             <div class="probootstrap-modal-flex">
               <div class="probootstrap-modal-figure" style="background-image: url(img/modal_bg.jpg);"></div>
               <div class="probootstrap-modal-content">
-              
+
                 <!-------------------------------------->
                 <!-------------    FORM    ------------->
                 <!-------------------------------------->
                 <form action="/register" class="probootstrap-form" method="POST" >
                   <!-------------------------------------->
                   <div class="form-group">
-                    <input type="text" name="nombre" class="form-control" placeholder="Alias">
-                  </div> 
+                    <input type="text" name="name" class="form-control" placeholder="Alias">
+                  </div>
                   <!-------------------------------------->
                   <div class="form-group">
                     <input type="text" name="email" class="form-control" placeholder="Email">
-                  </div> 
+                  </div>
                   <!-------------------------------------->
                   <div class="form-group">
                     <input type="password" name="password" class="form-control" placeholder="Password">
@@ -143,11 +143,6 @@
                   <!-------------------------------------->
                   <div class="form-group">
                     <input type="password" name="password" class="form-control" placeholder="Re-type Password">
-                  </div>
-                  <!--------------------------------------> 
-                  <div class="form-group clearfix mb40">
-                    <label for="remember" class="probootstrap-remember"><input type="checkbox" id="remember"> Remember Me</label>
-                    <a href="#" class="probootstrap-forgot">Forgot Password?</a>
                   </div>
                   <!-------------------------------------->
                   <div class="form-group text-left">
@@ -159,7 +154,7 @@
                   </div>
                 <!-------------------------------------->
                 <!-------------    /FORM    ------------>
-                <!-------------------------------------->                  
+                <!-------------------------------------->
                 </form>
               </div>
             </div>
@@ -167,24 +162,24 @@
         </div>
       </div>
     </div>
-    
-    {# Esto es un comentario#}  
+
+    {# Esto es un comentario#}
     {% block content %}
-    
-    
+
+
     {% endblock %}
-    
+
     <!----------------------------------------------------------------------->
     <!----------------------     JS scripts    ------------------------------->
     <!----------------------------------------------------------------------->
     <!--  Hay que recordar que es necesario agregar todos los recurzon es el forlder static
         Tammbies es necesario utilizar el URL_for para llamar a la dicreccion que se utiliza -->
-        
+
     <script type="text/javascript"
          src="{{ url_for('static', filename='js/scripts.min.js') }}"></script>
     <script type="text/javascript"
          src="{{ url_for('static', filename='js/custom.min.js') }}"></script>
-         
+
   </body>
-  
+
 </html>
