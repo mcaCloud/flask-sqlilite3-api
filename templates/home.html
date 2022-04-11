@@ -1,0 +1,8 @@
+{% extends "registered_layout.html" %}
+{% block content %}
+<div class="w3-card-4 w3-center">
+    <h1 style = "color: white;text-shadow: 2px 2px 4px #000000;"> <p>Buenos días {{session['user']}} !</p></h1>
+    <h2 style = "color: rgb(0,0,255); "> {{session['user']}} ésta es tu area privada. </h2>
+
+</div>
+{% endblock %}

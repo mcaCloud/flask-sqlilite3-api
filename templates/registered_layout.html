@@ -1,1 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mi primera app</title>
+    <meta name="description" content="Learming Python">
 
+    <!--Trabajo conesta libreria porque tiene muy buenos archivos CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <!--Los recursos siempre tienen que estar en el folder STATIC
+        Es necesario utilizaar el URL_FOR para llamar a la direccion donde esta el recurso
+    -------->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <!----------------------------------------------------------------------->
+    <!----------------------NAVIGATION BAR----------------------------------->
+    <!----------------------------------------------------------------------->
+    <!-- Le indicamos que queremos q se desplige en forma de nav bar --->
+    <div class="navbar navbar-right">
+      <div class="container-fluid">
+
+        <button class="w3-button w3-green"><a href="{{ url_for('logout')}}" class="btn" >Log out</a></button>
+      </div>
+    </div>
+
+
+
+    {# Esto es un comentario#}
+    {% block content %}
+
+
+    {% endblock %}
+
+  </body>
+
+</html>

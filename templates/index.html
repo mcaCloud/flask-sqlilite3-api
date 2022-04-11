@@ -2,20 +2,24 @@
 
 
 {% block content %}
+<div class="w3-card-4 w3-center">
+    <img src="{{ url_for('static', filename='img/eip.jpg') }}" alt="Paris" class="center">
+    <h1 style = "color: white;text-shadow: 2px 2px 4px #000000;"> Máster avanzado en programación con Python</h1>
+    <h2> Clase 10 </h2>
+    <p>Este es un ejercicio que incorpora los siguientes elementos: </p>
+    <u>
+      <li>Utilizar Modales para generar formularios </li>
+      <li>Conectar Flask con Sqllite3</li>
+      <li>Sistema básico de autenticación con Sessiones en Flask </li>
+      <li>Crear estructura de directorio</li>
+      <li>Trabajar con CSS, HTML, JScript</li>
+      <li>Trabajar con modelos para conectar con la base de datos . Un tipo de ORM básico</li>
+      <li>Practicar la OOP</li>
+    </u>
+    <p><b>Para este ejercicio se puede crear un nuevo usuario o utilizar uno de los que hay en la base de datos.</b></p>
 
-<h1> Buenos dias {{nombre}}</h1>
-    
-<form>
-    <input type= "texto" name="nombre" placeholder="Ingresa un nombre">
-    <button> Enviar </button>
-</form>
-<img src="forkit.gif" id="octocat" alt="" />
+    <p>Utilizo la libreria W3 para los recursos CSS, aunque tengo un fichero css que puede irse desarrollando</p>
 
-<!-- Feel free to change this text here -->
-<p>
-  Fork me? Fork you, @octocat!
-</p>
-<p>
-  Sean made a change
-</p>
+
+</div>
 {% endblock %}

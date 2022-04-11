@@ -5,109 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mi primera app</title>
     <meta name="description" content="Learming Python">
-    <meta name="keywords" content="python, testing, learning, test">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,700">
-
+    <!--Trabajo conesta libreria porque tiene muy buenos archivos CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
     <!--Los recursos siempre tienen que estar en el folder STATIC
         Es necesario utilizaar el URL_FOR para llamar a la direccion donde esta el recurso
     -------->
-    <link href="{{ url_for('static', filename='css/styles-merged.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ url_for('static', filename='css/style.min.css') }}" rel="stylesheet" type="text/css" />
-
-    <!--[if lt IE 9]>
-      <script src="js/vendor/html5shiv.min.js"></script>
-      <script src="js/vendor/respond.min.js"></script>
-    <![endif]-->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
   </head>
+
   <body>
     <!----------------------------------------------------------------------->
     <!----------------------NAVIGATION BAR----------------------------------->
     <!----------------------------------------------------------------------->
-    <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar">
-      <div class="container">
+    <!-- Le indicamos que queremos q se desplige en forma de nav bar --->
+    <div class="navbar navbar-right">
+      <div class="container-fluid">
+        <!-- LOGIN BUTTON-->
+        <!-- Asigno un ID en el modal que llamo con la funcion de javascript  -->
+        <!-- Utilizo las clase de boton de color verde -->
+        <!-- Con el trigger del boton llamo a la funcion de javascript con el ID especificado -->
+        <button onclick="document.getElementById('loginModal').style.display='block'" class="w3-button w3-gray w3-large">Login</button>
 
-        <!--DIV------------------------------->
-        <div class="navbar-header">
-
-        <!----------------COLLAPSE BUTTON----------------->
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <!----------------BRAND----------------->
-          <a class="navbar-brand" href="index.html" title="uiCookies:Inspire">Inspire</a>
-        </div>
-        <!--DIV END------------------------------->
-
-        <div id="navbar-collapse" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-             <!-----------HOME---------------->
-            <li><a href="index.html">Home</a></li>
-
-            <!------------CONTACT---------------->
-            <li><a href="{{ url_for('contact')}}">Contacto</a></li>
-
-            <!------------LOGIN--------------->
-            <li class="probootstra-cta-button"><a href="#" class="btn" data-toggle="modal" data-target="#loginModal">Log in</a></li>
-
-            <!-----------LOGOUT---------------->
-            <li class="probootstra-cta-button last"><a href="#" class="btn btn-ghost" data-toggle="modal" data-target="#signupModal">Sign up</a></li>
-          </ul>
-        </div>
+        <!-- LOGIN BUTTON-->
+        <!-- Asigno un ID en el modal que llamo con la funcion de javascript  -->
+        <!-- Utilizo las clase de boton de color verde -->
+        <!-- Con el trigger del boton llamo a la funcion de javascript con el ID especificado -->
+        <button onclick="document.getElementById('registerModal').style.display='block'" class="w3-button w3-gray w3-large">Register</button>
       </div>
-    </nav>
+    </div>
+
     <!----------------------------------------------------------------------->
     <!----------------------     LOGIN MODAL   ------------------------------>
     <!----------------------------------------------------------------------->
     <!-- Utilizo un Modla para el login -->
-    <div class="modal fadeInUp probootstrap-animated" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-      <div class="vertical-alignment-helper">
-        <div class="modal-dialog modal-md vertical-align-center">
-          <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-cross"></i></button>
-            <div class="probootstrap-modal-flex">
-              <div class="probootstrap-modal-figure" style="background-image: url(img/modal_bg.jpg);"></div>
-              <div class="probootstrap-modal-content">
-
-                 <!-------------------------------------->
-                 <!-------------    FORM    ------------->
-                 <!-------------------------------------->
-                <form action="/login" class="probootstrap-form" method="POST">
-                  <!-------------------------------------->
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Email">
-                  </div>
-
-                  <!-------------------------------------->
-                  <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password">
-                  </div>
-
-                  <!-------------------------------------->
-                  <div class="form-group clearfix mb40">
-                    <label for="remember" class="probootstrap-remember"><input type="checkbox" id="remember"> Remember Me</label>
-                    <a href="#" class="probootstrap-forgot">Forgot Password?</a>
-                  </div>
-
-                  <!-------------------------------------->
-                  <div class="form-group text-left">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <input type="submit" class="btn btn-primary btn-block" value="Sign In">
-                      </div>
-                    </div>
-                  </div>
-
-                </form>
-                <!-------------------------------------->
-                <!-------------    /FORM    ------------>
-                <!-------------------------------------->
-              </div>
-            </div>
+    <!-- Con el ID el boton sabe a cual funcion llamar -->
+    <div id="loginModal" class="w3-modal">
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+          <!----------------------------------------------------------------------->
+          <div class="w3-center"><br>
+            <span onclick="document.getElementById('loginModal').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+            <img src="{{ url_for('static', filename='img/avatar.webp') }}" alt="Avatar" style="width:20%" class="w3-circle w3-margin-top">
           </div>
+          <!----------------------------------------------------------------------->
+
+          <!------------------------- FORM ----------------------------------------->
+          <form class="w3-container" action="/login" method ='POST'>
+            <div class="w3-section">
+              <label><b>Email</b></label>
+              <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter E-mail" name="email" required>
+
+              <label><b>Password</b></label>
+              <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
+
+              <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Login</button>
+            </div>
+          </form>
+          <!------------------------- /FORM ----------------------------------------->
+
+          <!----------------------------------------------------------------------->
+          <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+            <button onclick="document.getElementById('loginModal').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+          </div>
+          <!----------------------------------------------------------------------->
+
         </div>
       </div>
     </div>
@@ -115,70 +77,54 @@
     <!----------------------------------------------------------------------->
     <!----------------------     REGISTER    ----------------------------------->
     <!----------------------------------------------------------------------->
-    <div class="modal fadeInUp probootstrap-animated" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
-      <div class="vertical-alignment-helper">
-        <div class="modal-dialog modal-md vertical-align-center">
-          <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-cross"></i></button>
-            <div class="probootstrap-modal-flex">
-              <div class="probootstrap-modal-figure" style="background-image: url(img/modal_bg.jpg);"></div>
-              <div class="probootstrap-modal-content">
-
-                <!-------------------------------------->
-                <!-------------    FORM    ------------->
-                <!-------------------------------------->
-                <form action="/register" class="probootstrap-form" method="POST" >
-                  <!-------------------------------------->
-                  <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="Alias">
-                  </div>
-                  <!-------------------------------------->
-                  <div class="form-group">
-                    <input type="text" name="email" class="form-control" placeholder="Email">
-                  </div>
-                  <!-------------------------------------->
-                  <div class="form-group">
-                    <input type="password" name="password" class="form-control" placeholder="Password">
-                  </div>
-                  <!-------------------------------------->
-                  <div class="form-group">
-                    <input type="password" name="password" class="form-control" placeholder="Re-type Password">
-                  </div>
-                  <!-------------------------------------->
-                  <div class="form-group text-left">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <input type="submit" class="btn btn-primary btn-block" value="Sign Up">
-                      </div>
-                    </div>
-                  </div>
-                <!-------------------------------------->
-                <!-------------    /FORM    ------------>
-                <!-------------------------------------->
-                </form>
-              </div>
-            </div>
+    <!-- Utilizo un Modla para el register -->
+    <!-- Con el ID el boton sabe a cual funcion llamar -->
+    <div id="registerModal" class="w3-modal">
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+          <!----------------------------------------------------------------------->
+          <div class="w3-center"><br>
+            <span onclick="document.getElementById('registerModal').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+            <img src="{{ url_for('static', filename='img/avatar.webp') }}" style="width:30%" class="w3-circle w3-margin-top">
           </div>
+          <!----------------------------------------------------------------------->
+
+          <!------------------------- FORM ----------------------------------------->
+          <form class="w3-container" action="/register" method ='POST'>
+            <div class="w3-section">
+
+              <label><b>Name</b></label>
+              <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Name" name="name" required>
+
+              <label><b>Email</b></label>
+              <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter E-mail" name="email" required>
+
+              <label><b>Password</b></label>
+              <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
+
+              <label><b>Re-type Password</b></label>
+              <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
+
+              <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Register</button>
+            </div>
+          </form>
+          <!------------------------- /FORM ----------------------------------------->
+
+          <!----------------------------------------------------------------------->
+          <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+            <button onclick="document.getElementById('loginModal').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+          </div>
+          <!----------------------------------------------------------------------->
+
         </div>
       </div>
     </div>
+
 
     {# Esto es un comentario#}
     {% block content %}
 
 
     {% endblock %}
-
-    <!----------------------------------------------------------------------->
-    <!----------------------     JS scripts    ------------------------------->
-    <!----------------------------------------------------------------------->
-    <!--  Hay que recordar que es necesario agregar todos los recurzon es el forlder static
-        Tammbies es necesario utilizar el URL_for para llamar a la dicreccion que se utiliza -->
-
-    <script type="text/javascript"
-         src="{{ url_for('static', filename='js/scripts.min.js') }}"></script>
-    <script type="text/javascript"
-         src="{{ url_for('static', filename='js/custom.min.js') }}"></script>
 
   </body>
 

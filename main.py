@@ -4,13 +4,14 @@
 # COn request me permite hacer los POST-GET
 from flask import Flask, jsonify, redirect, url_for, render_template
 from flask import request
-from flask_session import Session
+from flask import session
 
 # Esto lo importo para interactuar con la base de datos y sus metodos
 # Menciono el directorio, el fichero y la clase dentro del fichero
 from models.user_model import User
 from  models.db import Database
 from models.new_user import Model_new_user
+from models.validation import Validation
 #-------------------------------
 #       APLICACION
 #-------------------------------
@@ -44,41 +45,38 @@ app.secret_key = 'ItShouldBeAnythingButSecret'
 #definida es solicitado por un usuario. Su valor de retorno determina lo que el
 #usuario verá cuando cargue la página
 def index():
-    nombre = 'Mauro'
-    return render_template('index.html', nombre= nombre)
-
-#---------------
-#    CONTACT
-#----------------
-@app.route('/contact')
-def contact():
-    nombre = 'Mauro'
-    lista = [1,2,3,4,5,6,7]
-    # Flask sabe que todos los templates estan en el folder de template
-    # Invoco la funcion y le indico el nombre de mi template
-    # Las variables se las paso por parametro
-    return render_template('contact.html', lista = lista, nombre= nombre)
+    return render_template('index.html')
 
 #---------------
 #    LOGIN
 #----------------
-# NEcesito grabar cunado el usuario evia el formulario
+# Necesito grabar cuando el usuario evía el formulario
 @app.route('/login', methods = ['GET', 'POST'])
-def login(email,password,con):
-    if(request.method == 'POST'):
+def login():
 
-        username = request.form.get('email')
-        password = request.form.get('password')
-
-        cursorObj = con.cursor()
-
-
-        if email == user['email'] and password == user['password']:
-
-            session['user'] = username
+    if request.method == 'POST':
+        # Obtengo la variables que me llegan por POST
+        # Aún no puedo utilizar el jsonfy bien :P
+        email = request.form['email']
+        password = request.form['password']
+        # Utilizo mi modelo de new user y le paso por parametro mis variables
+        user = Validation.login(email, password)
+        #------------------
+        #    VALIDATION
+        #------------------
+        # Comparo las variables que me llegan del form con la info de la BD
+        # Si la información existe dentro del fetchone que obtuve de la base de DATOS
+        # Entonces significa que si existe ese usuario
+        if email in user and password in user:
+            # Obtengo el nombre de la persona para usarlo con id de session
+            id_session = user[1]
+            # Asigno la variable al id de session
+            session['user'] = id_session
+            # Si el usuario existe lo redirijo a la página dashboard
+            # Invboco al metodo dashboard y le paso el ID de session actual para validarlo
             return redirect('/dashboard')
-
-        return "<h1>Wrong username or password</h1>"    #if the username or password does not matches
+    else:
+        return "<h1>Ha ocurrido un error de authenticación.</h1>"    #if the username or password does not matches
 
 #---------------
 #    LOGOUT
@@ -86,8 +84,8 @@ def login(email,password,con):
 @app.route('/logout')
 def logout():
    # remove the username from the session if it is there
-   session.pop('username', None)
-   return redirect('index')
+   session.pop('user', None)
+   return redirect('/')
 
 #---------------
 #    REGISTER
@@ -121,13 +119,18 @@ def register():
         #return jsonify(object_user)
         return redirect('/')
 
+#---------------
+#    DASHBOARD
+#----------------
 @app.route('/dashboard')
-def home():
-  # check if the users exist or not
-    if not session.get("name"):
-        # if not there in the session then redirect to the login page
-        return redirect("/login")
-    return render_template('home.html')
+# Recibo como parámetro el id_session
+def dashboard():
+    # Si es igual al session ID grabado en el sistema...
+    if session['user']:
+        return render_template('home.html')
+
+
+    return '<h1>You are not logged in.</h1>'
 
 
 @app.route('/users', methods = ['GET'])
